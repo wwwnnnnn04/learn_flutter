@@ -15,26 +15,50 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  void _answQst() {
+  var _totalScore = 0;
+
+  void _answQst(int score) {
+    _totalScore += score;
     setState(() {
       _id += 1;
     });
     print(_id);
   }
 
+  void _reset() {
+    setState(() {
+      _id = 0;
+      _totalScore = 0;
+    });
+  }
+
   int _id = 0;
   static const _questions = [
     {
       'text': 'Какой твой любимый цвет',
-      'answer': ['Белый', 'Розовый', 'Красный', 'Черный']
+      'answer': [
+        {'qst': 'Белый', 'score': 3},
+        {'qst': 'Розовый', 'score': 8},
+        {'qst': 'Красный', 'score': 1},
+        {'qst': 'Черный', 'score': 4},
+      ]
     },
     {
       'text': 'Какая любимая порода животных',
-      'answer': ['Котики', 'Собаки', 'Хомяки']
+      'answer': [
+        {'qst': 'Котики', 'score': 3},
+        {'qst': 'Собаки', 'score': 8},
+        {'qst': 'Хомяки', 'score': 1},
+      ]
     },
     {
       'text': 'Любимая пора года',
-      'answer': ['Лето', 'Весна', 'Зима']
+      'answer': [
+        {'qst': 'Зима', 'score': 3},
+        {'qst': 'Весна', 'score': 8},
+        {'qst': 'Лето', 'score': 1},
+        {'qst': 'Осень', 'score': 4},
+      ]
     },
   ];
   @override
@@ -50,7 +74,7 @@ class _MyAppState extends State<MyApp> {
               id: _id,
               questions: _questions,
             )
-          : Result(),
+          : Result(_totalScore, _reset),
     ));
   }
 }
